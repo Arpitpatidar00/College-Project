@@ -1,0 +1,155 @@
+.app {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+.Placedata-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .Placedata-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .Placedata-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Placedata-form div {
+    margin-bottom: 15px;
+  }
+  
+  .Placedata-form label {
+    font-weight: bold;
+  }
+  
+  .Placedata-form input[type="text"],
+  .Placedata-form textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .Placedata-form textarea {
+    resize: vertical;
+    height: 100px; /* Adjust height as needed */
+  }
+  
+  .Placedata-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .Placedata-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  
+
+ /* Sidebar */
+  .sidebar {
+    width: 300px;
+    height: 700px;
+    background-color: #120079;
+    padding: 10px;
+}
+
+.sidebar hr {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    height: 1.5px;
+    background-color: #000000;
+}
+
+.buttonsdiv {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+
+}
+
+.button {
+    display: block;
+    width: 300px;
+    padding: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    /* Add margin between buttons*/
+    /* Align text to the left */
+}
+
+.button.active {
+    background-color: #7c7c7c;
+    /* Change to the color you want for the active button */
+}
+
+.button:hover {
+    background-color: #0a0042;
+}
+
+/* Adjustments for button text */
+.button b {
+    color: white;
+}
+
+.catbutton {
+    border-radius: 100px;
+}
+
+.catbutton:hover {
+    background-color: #686769;
+}
+.headings {
+  display: flex; /* Display headings horizontally */
+  justify-content: space-between; /* Spacing between headings */
+  background: #a7a7a7;
+  border-radius: 5px;
+}
+/* user? */
+
+#alluserscontainer {
+  display: flex; /* Display user containers horizontally */
+  flex-wrap: wrap; /* Allow wrapping of user containers */
+  margin: 0 2%; /* Adjust margin */
+  gap: 5px; /* Add gap between user containers */
+}
+
+.user-container {
+  width: calc(100% - 10px); /* Set width for each user container */
+  background-color: #f0f0f0; /* Example background color */
+  border-radius: 5px; /* Example border radius */
+}
+
+.user-info {
+  padding: 5px; /* Padding for user info */
+  display: flex; /* Display headings horizontally */
+  justify-content: space-between; /* Spacing between headings */
+}
+
+.delete-btn {
+  padding: 5px 10px; /* Adjust padding */
+  background-color: #ff0000; /* Example background color */
+  color: #ffffff; /* Example text color */
+  border: none; /* Remove border */
+  border-radius: 3px; /* Example border radius */
+  cursor: pointer; /* Add cursor pointer */
+}

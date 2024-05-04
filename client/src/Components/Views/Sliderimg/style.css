@@ -1,0 +1,22 @@
+@tailwind base;
+
+@layer base {
+  html {
+    @apply text-neutral-800;
+  }
+  html.dark {
+    @apply text-neutral-50;
+    @apply bg-neutral-800;
+  }
+}
+ #slider{
+  max-width: 1200px;
+  max-height: 500px;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10%;
+  margin-top: 10px;
+}
+
+@tailwind components;
+@tailwind utilities;
