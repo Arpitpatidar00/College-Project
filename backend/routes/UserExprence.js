@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 });
 
 // GET route to fetch all images
-router.get("/", async (req, res) => {
+router.get("/uploadedImages", async (req, res) => {
   try {
     // Fetch all images from the database
     const images = await Image.find();

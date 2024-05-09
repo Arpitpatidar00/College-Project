@@ -5,19 +5,16 @@ import Footer from "./Components/Views/Footer";
 import Home from "./Components/Views/Home";
 import Profile from "./Components/Views/Profile.js";
 import ImageDetails from "./Components/PlaceData/ImageDetails.js";
-//auth route
+import StartPage from "./Components/Views/StartPage.js"
 import Signin from "./Components/Authentication/Signin.js";
 import Signup from "./Components/Authentication/Signup.js";
-//admin route
 import Adminlogin from "./Admin/AdminLoginPage.js";
 import AdminPage from "./Admin/DataEntry/AdminPage.js";
 import { AuthProvider } from "./Context/AuthContext.js";
 
 function Start() {
   const location = useLocation();
-
-  const hideFooterRoutes = ["/login", "/"];
-
+  const hideFooterRoutes = ["/login", "/Signup",'/'];
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
@@ -26,9 +23,10 @@ function Start() {
       <Routes>
         <Route path="/Adminhome" element={<Adminlogin />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Signup />} />
+        <Route path="/" element={<StartPage />} />
+        <Route path="/Signup" element={<Signup />} />
         <Route path="/login" element={<Signin />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/details/:id" element={<ImageDetails />} />
       </Routes>
@@ -38,3 +36,7 @@ function Start() {
 }
 
 export default Start;
+
+
+
+

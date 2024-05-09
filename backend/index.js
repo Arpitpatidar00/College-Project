@@ -11,6 +11,7 @@ import reviewRoutes from './routes/Rating.js';
 import Search from './routes/SearchImage.js';
 import commentsRouter from './routes/CommentRoute.js'
 import UserExprence from './routes/UserExprence.js'
+import Guide from './routes/Guideresponse.js'
 
 dotenv.config();
 const app=express()
@@ -20,7 +21,7 @@ const PORT=process.env.PORT || 8000;
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB database connected');
-  })
+  }) 
   .catch((error) => {
     console.error('MongoDB connection failed:', error);
   });
@@ -39,6 +40,7 @@ app.use("/api", reviewRoutes);
 app.use("/add", Search);
 app.use("/comments", commentsRouter);
 app.use("/upload", UserExprence);
+app.use("/submit", Guide);
 
 // Error handler for PayloadTooLargeError
 app.use((err, req, res, next) => {

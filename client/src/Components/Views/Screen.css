@@ -1,96 +1,136 @@
 /* Screen.css */
-#maindiv {
+.bg-image-vertical {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+  }
+  
+  @media (min-width: 1025px) {
+  .h-custom-2 {
+  height: 100%;
+  }
+  }
+body {
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  height: 100vh;
 }
 
-.search-container {
-  margin: 20px 0;
-}
 
-/* About text */
-.abouttext {
-  text-align: center;
+
+#input{
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 5px;
+}
+.gradient-custom {
+  /* fallback for old browsers */
+  background: #f093fb;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1))
+  }
+  
+  .card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: .75em;
+  padding-right: .75em;
+  }
+  .card-registration .select-arrow {
+  top: 13px;
+  }
+
+.form-group {
   margin-bottom: 20px;
-}
-
-/* Featured places */
-.featuredtext {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.carousel-inner img {
-  width: 100%; /* Ensure images fill the carousel container */
-  height: auto; /* Maintain aspect ratio */
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-form {
+  align-items: center;
+  justify-content: center;
   display: flex;
-  flex-direction: column;
 }
 
 label {
+  display: block;
   margin-bottom: 5px;
 }
 
-#input {
-  padding: 10px;
-  margin-bottom: 10px;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
   width: 100%;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 15px;
 }
-#input2 {
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 15px;
+
+input[type="file"] {
+  margin-top: 10px;
 }
-#buttondiv {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-button {
-  width: 150px;
-  padding: 12px 20px;
+
+button[type="submit"] {
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 30px;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #0056b3;
 }
 
-p {
+.video-container {
+  position: relative;
+}
+
+.controls-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.link {
   margin-top: 20px;
   text-align: center;
 }
 
-a {
+.link a {
   color: #007bff;
   text-decoration: none;
 }
 
-a:hover {
+.link a:hover {
   text-decoration: underline;
 }
 
-/* Screen.css */
+/* Responsive styles */
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .container {
+    padding: 15px;
+  }
+}
 
+@media only screen and (max-width: 576px) {
+  /* Further adjustments for smaller screens */
+  .container {
+    padding: 10px;
+  }
+}
+
+/* Role radio buttons */
 /* Radio button styles */
 input[type="radio"] {
   display: none;
@@ -135,117 +175,5 @@ input[type="radio"]:checked + label:after {
   top: 7px;
   left: 7px;
 }
-
-/* ////// */
-.container {
-  width: 600px;
-  max-width: 800px;
-  margin: 32.5px 0 0 0;
-  padding: 25px 70px 25px 50px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.form-group {
-  margin-bottom: 20px;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-}
-
-input[type="file"] {
-  margin-top: 10px;
-}
-
-button[type="submit"] {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.link {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.link a:hover {
-  text-decoration: underline;
-}
-#container-login h1 {
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
-}
-
-#container-login form {
-  display: flex;
-  flex-direction: column;
-}
-
-#container-login label {
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-#container-login input,
-#container-login select {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#container-login input[type="file"] {
-  margin-top: 8px;
-}
-
-#container-login button[type="submit"] {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#container-login button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-.link {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.link a {
-  color: #007bff;
-}
-/* Role radio buttons */
+/* ?????????????????????? */
+/* slider */

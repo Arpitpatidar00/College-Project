@@ -1,3 +1,4 @@
+// User.js
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -5,7 +6,6 @@ const userSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      
     },
     email: {
       type: String,
@@ -22,8 +22,16 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      default: "user",
+      required: true,
+      enum: ["user", "driver", "guide"], // Ensure role is one of these values
     },
+    // Additional fields based on role
+    aadharNumber: String,
+    certificationAddress: String,
+    licenceNumber: String,
+    aadharFile: String,
+    certificationFile: String,
+    licenceFile: String,
   },
   { timestamps: true }
 );

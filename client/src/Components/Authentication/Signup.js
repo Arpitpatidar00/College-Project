@@ -18,39 +18,46 @@ function SignUp() {
   const [preview, setPreview] = useState("");
   const [additionalFields, setAdditionalFields] = useState({
     aadharNumber: "",
-    aadharFile: null,
     certificationAddress: "",
-    certificationFile: null,
     licenceNumber: "",
+    aadharFile: null,
     licenceFile: null,
+    certificationFile: null,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Convert file inputs to base64 strings
-      const aadharFileBase64 = additionalFields.aadharFile
-        ? await convertFileToBase64(additionalFields.aadharFile)
+      // Encode image data as base64
+      const imageData = preview.split(",")[1];
+      console.log(imageData);
+      // Convert files to base64
+      const aadharFileData = additionalFields.aadharFile
+        ? await fileToBase64(additionalFields.aadharFile)
         : null;
-      const certificationFileBase64 = additionalFields.certificationFile
-        ? await convertFileToBase64(additionalFields.certificationFile)
+      const licenceFileData = additionalFields.licenceFile
+        ? await fileToBase64(additionalFields.licenceFile)
         : null;
-      const licenceFileBase64 = additionalFields.licenceFile
-        ? await convertFileToBase64(additionalFields.licenceFile)
+      const certificationFileData = additionalFields.certificationFile
+        ? await fileToBase64(additionalFields.certificationFile)
         : null;
-      const imageBase64 = preview ? preview.split(",")[1] : null;
 
+      // Send data to the server
       const response = await axios.post("http://localhost:4000/auth/register", {
         ...formData,
-        aadharFile: aadharFileBase64,
-        certificationFile: certificationFileBase64,
-        licenceFile: licenceFileBase64,
-        image: imageBase64,
+        ...additionalFields,
+        image: imageData,
+
+        aadharFile: aadharFileData,
+        licenceFile: licenceFileData,
+        certificationFile: certificationFileData,
       });
 
       alert("Successfully registered user.");
       console.log(response.data);
-      navigate("/login"); // Redirect to login page
+
+      // Redirect to the login page
+      navigate("/login");
     } catch (error) {
       console.error("Error signing up:", error);
       alert("Failed to register user. Please try again.");
@@ -65,11 +72,25 @@ function SignUp() {
     });
   };
 
+  async function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    if (!file) {
+      // Handle case where no file is selected
+      return;
+    }
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreview(reader.result);
+      const base64data = reader.result;
+      setPreview(base64data);
     };
     reader.readAsDataURL(file);
   };
@@ -87,15 +108,6 @@ function SignUp() {
     setAdditionalFields({
       ...additionalFields,
       [fieldName]: file,
-    });
-  };
-
-  const convertFileToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(file);
     });
   };
 
@@ -141,6 +153,7 @@ function SignUp() {
         </div>
 
         <form onSubmit={handleSubmit}>
+          {/* Common fields */}
           <div className="form-group">
             <label>Username:</label>
             <input
@@ -176,7 +189,6 @@ function SignUp() {
           </div>
 
           {/* Role-specific fields */}
-
           {formData.role === "guide" && (
             <>
               <div className="form-group">
@@ -191,15 +203,15 @@ function SignUp() {
               </div>
               <div className="form-group">
                 <label>Aadhar File:</label>
-
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={(e) => handleAdditionalFileChange(e, "aadharFile")}
+                  required
                 />
               </div>
               <div className="form-group">
-                <label>Certification:</label>
+                <label>Certification Address:</label>
                 <input
                   type="text"
                   name="certificationAddress"
@@ -209,14 +221,14 @@ function SignUp() {
                 />
               </div>
               <div className="form-group">
-                <label> Uplode Certification:</label>
-
+                <label>Certification File:</label>
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={(e) =>
                     handleAdditionalFileChange(e, "certificationFile")
                   }
+                  required
                 />
               </div>
             </>
@@ -235,11 +247,11 @@ function SignUp() {
               </div>
               <div className="form-group">
                 <label>Aadhar File:</label>
-
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={(e) => handleAdditionalFileChange(e, "aadharFile")}
+                  required
                 />
               </div>
               <div className="form-group">
@@ -253,18 +265,26 @@ function SignUp() {
                 />
               </div>
               <div className="form-group">
-                <label>Licence:</label>
+                <label>Licence File:</label>
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={(e) => handleAdditionalFileChange(e, "licenceFile")}
+                  required
                 />
               </div>
             </>
           )}
+
+          {/* Common field */}
           <div className="form-group">
             <label>User Image:</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+            />
             {preview && (
               <img
                 src={preview}

@@ -1,7 +1,6 @@
 /* Placedata.css */
 
 /* Image Container */
-
 .placecontainer {
   display: flex;
   flex-direction: column;
@@ -16,6 +15,7 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 #buttonscontainer {
   justify-content: space-around;
   display: flex;
@@ -69,17 +69,13 @@
 /* Add Your experience section */
 #experience {
   margin-top: 20px;
-  margin:5%;
-
-
-
+  margin: 5%;
 }
-.experience-share{
+
+.experience-share {
   background-color: #287d78;
   border-radius: 5px;
-
 }
-
 
 #experience label {
   cursor: pointer;
@@ -108,14 +104,14 @@
 
 /* Image container */
 .image-container {
-  position: relative; /* Ensure the container is positioned relatively */
+  position: relative;
   margin: 20px;
   max-width: 80%;
 }
 
 .image-container img {
   width: 100%;
-  height: auto; /* Adjust for aspect ratio */
+  height: auto;
 }
 
 /* Position and style for place name */
@@ -136,8 +132,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%; /* Adjust width as needed */
-  max-width: 400px; /* Limit max width for larger screens */
+  width: 90%;
+  max-width: 400px;
   background-color: #ffffff;
   border: 1px solid #ffffff;
   padding: 20px;
@@ -162,15 +158,7 @@
 }
 
 /* Driver section */
-.Driver {
-  cursor: pointer;
-  background: #000000;
-  color: #ffffff;
-  border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
-}
+.Driver,
 .Guide {
   cursor: pointer;
   background: #000000;
@@ -208,24 +196,17 @@
 }
 
 /* Media Queries for Responsive Design */
-
 @media screen and (max-width: 768px) {
   /* Adjust styles for smaller screens */
   .profile-box {
-    width: 95%; /* Adjust width for smaller screens */
+    width: 95%;
     max-width: none;
   }
-}
 
-
-
-#placeuploadedimages{
-
-  overflow-y:scroll;
-  background-color: #287d78;
-  border-radius: 5px;
-  width: 800px;
-  height:400px ;
-  max-width: 800px;
-  max-height:400px ;
+  #placeuploadedimages {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    max-height: none;
+  }
 }

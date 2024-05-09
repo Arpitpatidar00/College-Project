@@ -9,7 +9,6 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [searchClicked, setSearchClicked] = useState(false);
-
   const handleSearch = async () => {
     try {
       if (!query) {
@@ -19,7 +18,7 @@ const Search = () => {
       
       const response = await axios.get(`http://localhost:4000/add/search?query=${query}`);
       setImages(response.data);
-      setSearchData(response.data); // Set search data in context
+      setSearchData(response.data);
       setSearchClicked(true);
     } catch (error) {
       console.error('Error searching:', error);

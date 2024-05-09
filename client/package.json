@@ -18,6 +18,7 @@
     "bson": "^6.6.0",
     "crypto-browserify": "^3.12.0",
     "framer-motion": "^11.1.7",
+    "js-cookie": "^3.0.5",
     "lightgallery": "^2.7.2",
     "mdb-react-ui-kit": "^7.2.0",
     "postcss-loader": "^8.1.1",
@@ -28,8 +29,10 @@
     "react-rating": "^2.0.5",
     "react-rounded-image": "^2.0.15",
     "react-scripts": "5.0.1",
+    "react-toggle-button": "^2.2.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.8",
+    "tw-elements": "^2.0.0",
     "tw-elements-react": "^1.0.0-alpha2",
     "web-vitals": "^2.1.4"
   },

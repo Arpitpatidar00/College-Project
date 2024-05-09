@@ -2,12 +2,14 @@
 import mongoose from "mongoose";
 
 // Comment model
-
 const commentSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
-  username: { type: String, required: true },
-  image: { type: String, required: true },
+  userId: { type: String }, // Update to include userId
+  comId: { type: String }, // Add comId field
+  avatarUrl: { type: String }, // Add avatarUrl field
+  userProfile: { type: String }, // Add userProfile field
+  fullName: { type: String }, // Add fullName field
   text: { type: String, required: true },
+  placeName:{type: String, required: true},
   createdAt: { type: Date, default: Date.now },
 });
 

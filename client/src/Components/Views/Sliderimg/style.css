@@ -1,3 +1,5 @@
+/* style.css */
+
 @tailwind base;
 
 @layer base {
@@ -9,14 +11,108 @@
     @apply bg-neutral-800;
   }
 }
- #slider{
-  max-width: 1200px;
-  max-height: 500px;
+
+#Slider {
+  max-width: 100%; /* Adjust to fit your design */
+  max-height: 100%; /* Adjust to fit your design */
   padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10%;
-  margin-top: 10px;
+  margin: 2px;
+  border-radius: 10px;
+  box-shadow: 5px;
 }
 
+.example-container {
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5% 0; /* Adjust padding as needed */
+}
+
+.next,
+.prev {
+  top: 50%;
+  position: absolute;
+  background: white;
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev {
+  left: 10px;
+  transform: scale(-1);
+}
+
+video {
+  max-width: 100%;
+  height: auto; /* Ensures video aspect ratio is maintained */
+}
+
+.refresh {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+
+@media screen and (max-width: 768px) {
+  .example-container {
+    padding: 10% 0; /* Adjust padding for smaller screens */
+  }
+
+  .next,
+  .prev {
+    top: calc(50% - 20px);
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+
+video {
+  max-width: 100%;
+}
+
+.refresh {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Additional Tailwind CSS classes can be added directly here if needed */
 @tailwind components;
 @tailwind utilities;

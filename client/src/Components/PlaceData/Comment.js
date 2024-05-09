@@ -1,32 +1,37 @@
 import React, { useState } from "react";
 import { CommentSection } from "react-comments-section";
 import "react-comments-section/dist/index.css";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import { useAuth } from "../../Context/AuthContext";
 
-const DefaultComponent = () => {
-  const { userData } = useAuth();
+const DefaultComponent = ({ placeName }) => {
+  const { userData, searchData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  if (!userData || !userData.data) {
-    // Handle the case where userData or userData.data is null
+  if (!userData || !userData.data || !searchData || !placeName) {
     return <div>Loading...</div>;
   }
 
-  const handlePostComment = async (commentText) => {
+  const handlePostComment = async (commentData) => {
     setIsLoading(true);
     setError(null);
 
     try {
+      // Extract necessary data from the commentData
+      const { text, userId, comId, avatarUrl, userProfile, fullName } = commentData;
+
       const response = await axios.post("http://localhost:4000/comments", {
-        userId: userData.data._doc.userId,
-        username: userData.data._doc.username,
-        image: userData.data._doc.image,
-        text: commentText,
+        text,
+        userId,
+        comId,
+        avatarUrl,
+        userProfile,
+        fullName,
+        placeName, // Include placeName in the payload
       });
 
-      if (response.status === 201) {
+      if (response.status !== 201) {
         throw new Error("Failed to post comment");
       }
 

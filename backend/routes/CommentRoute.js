@@ -4,7 +4,6 @@ import Comment from "../models/Comment.js";
 
 const router = express.Router();
 
-
 router.get("/", async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -14,16 +13,19 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  const { userId, username, image, text } = req.body;
+router.post("/", async (req, res) => {
+  const { userId, comId, avatarUrl, userProfile, fullName, text,placeName } = req.body;
 
   try {
     // Create a new Comment document
     const comment = new Comment({
       userId,
-      username,
-      image,
+      comId,
+      avatarUrl,
+      userProfile,
+      fullName,
       text,
+      placeName,
     });
 
     // Save the comment to the database
@@ -38,4 +40,3 @@ router.post('/', async (req, res) => {
 });
 
 export default router;
-
