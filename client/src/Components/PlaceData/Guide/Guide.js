@@ -1,41 +1,48 @@
 import React, { useState, useEffect } from "react";
 import ReactRoundedImage from "react-rounded-image";
-import MyPhoto from "../Guide/sliderimg1.jpg";
 import { IoIosCall } from "react-icons/io";
 import { IoAddSharp } from "react-icons/io5";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import "./Guide.css";
+import GuideInterface from "./GuideInterface.js";
+import { useAuth } from "../../../Context/AuthContext.js";
 
 const Guide = () => {
+  const placeId = useSelector((state) => state.place.placeId);
+  const userData = useSelector((state) => state.auth.userData);
+  const { PlacedelectId } = useAuth();
+
   const [showCallDescription, setShowCallDescription] = useState(false);
   const [showAddDescription, setShowAddDescription] = useState(false);
   const [isImageHovered, setIsImageHovered] = useState(false);
-  const [guideData, setGuideData] = useState(null); // State to store guide data
+  const [guides, setGuides] = useState([]);
+  const [currentGuideIndex, setCurrentGuideIndex] = useState(0);
+  const [isToggled, setIsToggled] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   useEffect(() => {
-    // Function to fetch guide data from the backend
     const fetchGuideData = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/submit/guide"); // Assuming the backend API endpoint is '/api/guides'
-        setGuideData(response.data.guideData); // Set guide data in state
-        console.log(response.data.guideData.userData.data.image)
-
+        const response = await axios.get("http://localhost:4000/guide/guide");
+        setGuides(response.data.guideData);
       } catch (error) {
         console.error("Error fetching guide data:", error);
       }
     };
 
-    fetchGuideData(); // Call the function to fetch guide data when the component mounts
+    fetchGuideData();
   }, []);
+
+  const filteredGuides = guides.filter((guide) => guide.placeId === placeId);
 
   const toggleCallDescription = () => {
     setShowCallDescription((prev) => !prev);
-    // Hide the Add Description when Call Description is shown
     setShowAddDescription(false);
   };
 
   const toggleAddDescription = () => {
     setShowAddDescription((prev) => !prev);
-    // Hide the Call Description when Add Description is shown
     setShowCallDescription(false);
   };
 
@@ -47,60 +54,145 @@ const Guide = () => {
     setIsImageHovered(false);
   };
 
+  const handleNextGuide = () => {
+    setCurrentGuideIndex((prevIndex) =>
+      prevIndex === filteredGuides.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePreviousGuide = () => {
+    setCurrentGuideIndex((prevIndex) =>
+      prevIndex === 0 ? filteredGuides.length - 1 : prevIndex - 1
+    );
+  };
+
+  const currentGuide = filteredGuides[currentGuideIndex];
+
+  const deleteGuideData = async () => {
+    if (!isToggled) {
+      try {
+        await axios.delete(`http://localhost:4000/guide/delete/${PlacedelectId}`);
+        const response = await axios.get("http://localhost:4000/guide/guide");
+        setGuides(response.data.guideData);
+        setIsAvailable(false);
+      } catch (error) {
+        console.error("Error deleting guide data:", error);
+      }
+    }
+  };
+
   return (
     <div>
-      <div
-        style={{ display: "flex", alignItems: "center" }}
-        onMouseEnter={handleImageHover}
-        onMouseLeave={handleImageLeave}
-      >
-        <ReactRoundedImage
-          image={guideData.userData.data.image}
-          imageWidth={isImageHovered ? 250 : 150} // Conditionally set the image width based on hover state
-          imageHeight={isImageHovered ? 250 : 150} // Conditionally set the image height based on hover state
-        />
-        <h1 style={{ marginLeft: "10px" }}>Name</h1>
+      <div className="guide-navigation">
+        {userData.role === "user" && (
+          <>
+            <button className="guide-button" onClick={handlePreviousGuide}>
+              Previous
+            </button>
+            <button className="guide-button" onClick={handleNextGuide}>
+              Next
+            </button>
+          </>
+        )}
       </div>
-      <div style={{ display: "flex" }}>
-        <div style={{ marginRight: "10px" }}>
-          <IoIosCall
-            onClick={toggleCallDescription}
-            size={40} // Adjust the size as needed
-            style={{ cursor: "pointer" }}
-          />
-          {showCallDescription && (
-            <div>
-              <p>This is the Call Description content.</p>
-              {guideData && (
-                <>
-                  <h1>Email: {guideData.userData.data.email}</h1>
-                  <h1>Phone NO.: {guideData.phone}</h1>
-                </>
+      {userData.role === "user" && (
+      <div className="guide-container">
+        {filteredGuides.length > 0 ? (
+          <div>
+            <div className="guide-content">
+              <div
+                className="guide-image"
+                onMouseEnter={handleImageHover}
+                onMouseLeave={handleImageLeave}
+              >
+                <ReactRoundedImage
+                  image={`data:image/png;base64,${currentGuide.userData.image}`}
+                  imageWidth={isImageHovered ? 250 : 150}
+                  imageHeight={isImageHovered ? 250 : 150}
+                />
+                <h1 className="guide-username">
+                  {currentGuide.userData.username}
+                </h1>
+              </div>
+
+              {userData.role === "user" && (
+                <div className="user-content">
+                  <div className="guide-options">
+                    <div className="guide-option">
+                      <IoIosCall
+                        onClick={toggleCallDescription}
+                        size={40}
+                        style={{ cursor: "pointer" }}
+                      />
+                      {showCallDescription && (
+                        <div className="guide-description">
+                          <p>This is the Call Description content.</p>
+                          <h1>Email: {currentGuide.userData.email}</h1>
+                          <h1>Phone NO: {currentGuide.userData.mobileNumber}</h1>
+                        </div>
+                      )}
+                    </div>
+                    <div className="guide-option">
+                      <IoAddSharp
+                        onClick={toggleAddDescription}
+                        size={40}
+                        style={{ cursor: "pointer" }}
+                      />
+                      {showAddDescription && (
+                        <div className="guide-description">
+                          <p>This is the Add Description content.</p>
+                          <h1>Achievements: {currentGuide.certificationAddress}</h1>
+                          <h1>Qualifications: {currentGuide.qualifications}</h1>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="guide-details">
+                    <p>Custom Place: {currentGuide.customPlace}</p>
+                    <p>Hours: {currentGuide.hours}</p>
+                    <p>Price: {currentGuide.price}</p>
+                    <p>Time: {currentGuide.time}</p>
+                    <p>Place ID: {currentGuide.placeId}</p>
+                  </div>
+                </div>
               )}
             </div>
-          )}
-        </div>
-        <div>
-          <IoAddSharp
-            onClick={toggleAddDescription}
-            size={40} // Adjust the size as needed
-            style={{ cursor: "pointer" }}
-          />
-          {showAddDescription && (
-            <div>
-              <p>This is the Add Description content.</p>
-              {guideData && (
-                <>
-                  <h1>Achievements: {guideData.achievements}</h1>
-                  <h1>Qualifications: {guideData.qualifications}</h1>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+          </div>
+        ) : userData.role === "user" ? (
+          <p>No guides available.</p>
+        ) : null}
       </div>
+       )}
+      {userData.role === "guide" && (
+        <div className="guide-additional-details">
+          <Toggle
+            checked={isToggled}
+            onClick={() => {
+              setIsToggled(!isToggled);
+              deleteGuideData();
+            }}
+          />
+
+          {isToggled && <GuideInterface />}
+        </div>
+      )}
+
+      <p>{isAvailable ? "You are available." : "You are not available."}</p>
     </div>
   );
 };
 
+const Toggle = ({ checked, onClick }) => {
+  return (
+    <div className="toggle-container" onClick={onClick}>
+      <input
+        type="checkbox"
+        className="toggle-input"
+        checked={checked}
+        onChange={() => {}} // Empty handler to satisfy React warning
+      />
+      <div className="toggle-slider"></div>
+    </div>
+  );
+};
 export default Guide;

@@ -19,39 +19,38 @@ export const register = async (req, res) => {
       aadharFile,
       certificationFile,
       licenceFile,
+      Place,
+      mobileNumber,
     } = req.body;
 
     // Check if user with the same email exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "User with this email already exists",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists",
+      });
     }
 
     // Hash password
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
 
-    // Decode base64 encoded image data
-    const decodedImage = Buffer.from(image, "base64");
-
-    // Create new user
+    // Save base64 encoded image data to the database
     const newUser = new User({
       username,
       email,
       password: hash,
       role,
-      image: decodedImage, // Save the decoded image data
+      image, // Save the base64 encoded image data directly
       aadharNumber,
       certificationAddress,
       licenceNumber,
       aadharFile,
       certificationFile,
       licenceFile,
+      Place,
+      mobileNumber,
     });
     await newUser.save();
 

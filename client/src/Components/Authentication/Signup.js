@@ -1,18 +1,22 @@
+// SignUp.js
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../actions/authActions";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../Views/Screen.css";
 
 function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-
-
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
-    role: "user", // Default role is 'user'
+    role: "user",
+    mobileNumber: "",
   });
 
   const [preview, setPreview] = useState("");
@@ -23,15 +27,13 @@ function SignUp() {
     aadharFile: null,
     licenceFile: null,
     certificationFile: null,
+    Place: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Encode image data as base64
       const imageData = preview.split(",")[1];
-      console.log(imageData);
-      // Convert files to base64
       const aadharFileData = additionalFields.aadharFile
         ? await fileToBase64(additionalFields.aadharFile)
         : null;
@@ -42,25 +44,23 @@ function SignUp() {
         ? await fileToBase64(additionalFields.certificationFile)
         : null;
 
-      // Send data to the server
       const response = await axios.post("http://localhost:4000/auth/register", {
         ...formData,
         ...additionalFields,
         image: imageData,
-
         aadharFile: aadharFileData,
         licenceFile: licenceFileData,
         certificationFile: certificationFileData,
       });
 
-      alert("Successfully registered user.");
-      console.log(response.data);
+      toast.success("Successfully registered user.");
 
-      // Redirect to the login page
+      dispatch(signUp(response.data));
+
       navigate("/login");
     } catch (error) {
       console.error("Error signing up:", error);
-      alert("Failed to register user. Please try again.");
+      toast.error("Failed to register user. Please try again.");
     }
   };
 
@@ -84,7 +84,6 @@ function SignUp() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) {
-      // Handle case where no file is selected
       return;
     }
     const reader = new FileReader();
@@ -112,8 +111,18 @@ function SignUp() {
   };
 
   return (
-    <div id="maindiv">
-      <div id="container-login">
+    <div id="main">
+      <div
+        id="container-login"
+        style={{
+          width: "90%",
+          maxWidth: "500px",
+          padding: "20px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <h1>Sign up</h1>
         <div className="form-group">
           <label>Role:</label>
@@ -153,7 +162,6 @@ function SignUp() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Common fields */}
           <div className="form-group">
             <label>Username:</label>
             <input
@@ -188,40 +196,57 @@ function SignUp() {
             />
           </div>
 
-          {/* Role-specific fields */}
+          <div className="form-group">
+            <label>Mobile Number:</label>
+            <input
+              type="text"
+              name="mobileNumber"
+              value={formData.mobileNumber}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
           {formData.role === "guide" && (
             <>
               <div className="form-group">
-                <label>Aadhar Number:</label>
+                <label style={{ display: "inline-block", marginRight: "10px" }}>
+                  Aadhar Number:
+                </label>
                 <input
                   type="text"
                   name="aadharNumber"
                   value={additionalFields.aadharNumber}
                   onChange={handleAdditionalInputChange}
                   required
+                  style={{ display: "inline-block", width: "calc(50% - 10px)" }}
                 />
-              </div>
-              <div className="form-group">
-                <label>Aadhar File:</label>
+                <label style={{ display: "inline-block", marginLeft: "10px" }}>
+                  Aadhar File:
+                </label>
                 <input
                   type="file"
                   accept="application/pdf"
                   onChange={(e) => handleAdditionalFileChange(e, "aadharFile")}
                   required
+                  style={{ display: "inline-block", width: "calc(50% - 10px)" }}
                 />
               </div>
               <div className="form-group">
-                <label>Certification Address:</label>
+                <label style={{ display: "inline-block", marginRight: "10px" }}>
+                  Certification Address:
+                </label>
                 <input
                   type="text"
                   name="certificationAddress"
                   value={additionalFields.certificationAddress}
                   onChange={handleAdditionalInputChange}
                   required
+                  style={{ display: "inline-block", width: "calc(50% - 10px)" }}
                 />
-              </div>
-              <div className="form-group">
-                <label>Certification File:</label>
+                <label style={{ display: "inline-block", marginLeft: "10px" }}>
+                  Certification File:
+                </label>
                 <input
                   type="file"
                   accept="application/pdf"
@@ -229,54 +254,74 @@ function SignUp() {
                     handleAdditionalFileChange(e, "certificationFile")
                   }
                   required
+                  style={{ display: "inline-block", width: "calc(50% - 10px)" }}
                 />
               </div>
             </>
           )}
           {formData.role === "driver" && (
             <>
-              <div className="form-group">
-                <label>Aadhar Number:</label>
-                <input
-                  type="text"
-                  name="aadharNumber"
-                  value={additionalFields.aadharNumber}
-                  onChange={handleAdditionalInputChange}
-                  required
-                />
+              <div className="form-group row">
+                <div className="col">
+                  <label style={{ display: "inline-block", marginRight: "10px" }}>
+                    Aadhar Number:
+                  </label>
+                  <input
+                    type="text"
+                    name="aadharNumber"
+                    value={additionalFields.aadharNumber}
+                    onChange={handleAdditionalInputChange}
+                    required
+                    style={{ display: "inline-block", width: "calc(50% - 10px)" }}
+                  />
+                </div>
+                <div className="col">
+                  <label style={{ display: "inline-block", marginLeft: "10px" }}>
+                    Aadhar File:
+                  </label>
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) =>
+                      handleAdditionalFileChange(e, "aadharFile")
+                    }
+                    required
+                    style={{ display: "inline-block", width: "calc(50% - 10px)" }}
+                  />
+                </div>
               </div>
-              <div className="form-group">
-                <label>Aadhar File:</label>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={(e) => handleAdditionalFileChange(e, "aadharFile")}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Licence Number:</label>
-                <input
-                  type="text"
-                  name="licenceNumber"
-                  value={additionalFields.licenceNumber}
-                  onChange={handleAdditionalInputChange}
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label>Licence File:</label>
-                <input
-                  type="file"
-                  accept="application/pdf"
-                  onChange={(e) => handleAdditionalFileChange(e, "licenceFile")}
-                  required
-                />
+              <div className="form-group row">
+                <div className="col">
+                  <label style={{ display: "inline-block", marginRight: "10px" }}>
+                    License Number:
+                  </label>
+                  <input
+                    type="text"
+                    name="licenceNumber"
+                    value={additionalFields.licenceNumber}
+                    onChange={handleAdditionalInputChange}
+                    required
+                    style={{ display: "inline-block", width: "calc(50% - 10px)" }}
+                  />
+                </div>
+                <div className="col">
+                  <label style={{ display: "inline-block", marginLeft: "10px" }}>
+                    License File:
+                  </label>
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) =>
+                      handleAdditionalFileChange(e, "licenceFile")
+                    }
+                    required
+                    style={{ display: "inline-block", width: "calc(50% - 10px)" }}
+                  />
+                </div>
               </div>
             </>
           )}
 
-          {/* Common field */}
           <div className="form-group">
             <label>User Image:</label>
             <input

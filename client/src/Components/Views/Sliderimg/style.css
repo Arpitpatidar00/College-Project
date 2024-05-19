@@ -1,14 +1,34 @@
 /* style.css */
 
-@tailwind base;
+/* Add styles for the skeleton loading state */
+.skeleton-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
 
-@layer base {
-  html {
-    @apply text-neutral-800;
+.skeleton-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd; /* Gray background color */
+  animation: loading 1.5s infinite ease-in-out; /* Animation for loading effect */
+  border-radius: 10px;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-150%);
   }
-  html.dark {
-    @apply text-neutral-50;
-    @apply bg-neutral-800;
+  50% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(150%);
   }
 }
 

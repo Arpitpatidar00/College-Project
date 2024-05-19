@@ -3,6 +3,8 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./Components/Views/Navbar";
 import Footer from "./Components/Views/Footer";
 import Home from "./Components/Views/Home";
+import Feedback from "./Components/Views/Feedback";
+
 import Profile from "./Components/Views/Profile.js";
 import ImageDetails from "./Components/PlaceData/ImageDetails.js";
 import StartPage from "./Components/Views/StartPage.js"
@@ -14,7 +16,7 @@ import { AuthProvider } from "./Context/AuthContext.js";
 
 function Start() {
   const location = useLocation();
-  const hideFooterRoutes = ["/login", "/Signup",'/'];
+  const hideFooterRoutes = ["/login", "/signup",'/','/Feedback'];
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
@@ -27,6 +29,8 @@ function Start() {
         <Route path="/Signup" element={<Signup />} />
         <Route path="/login" element={<Signin />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/Feedback" element={<Feedback />} />
+
         <Route path="/profile" element={<Profile />} />
         <Route path="/details/:id" element={<ImageDetails />} />
       </Routes>

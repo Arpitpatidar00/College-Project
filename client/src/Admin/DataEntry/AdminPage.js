@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import { useAdmin } from "../../Context/AdminContext";
 import Placedata from "./Placedata";
 import Userdata from "./Userdata";
-
+import VideoUpload from "./Videospage.js";
 function Adminpanel() {
   const { placedata, userdata } = useAdmin();
 
@@ -26,7 +26,9 @@ function Adminpanel() {
               <Userdata />
             </>
           ) : (
-            <></>
+            <>
+              <VideoUpload />
+            </>
           )}
         </div>
       </div>

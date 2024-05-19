@@ -1,7 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
-import "@fortawesome/fontawesome-free/css/all.min.css"; */
-
 
 a {
   color: black !important;
@@ -60,21 +56,35 @@ h6 {
   object-fit: cover;
 }
 
-/* aobut text */
-.abouttext {
-  margin-top: 50px;
+/* General styling for text sections */
+.abouttext, .featuredtext, .feedbacktext {
+  padding-bottom: 50px;
+  padding-top: 50px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
-.featuredtext {
+.abouttext h1, .featuredtext h1, .feedbacktext h1 {
   font-weight: bolder;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 0%;
+  font-size: 40px;
+}
 
+/* Additional styles for animations */
+.abouttext.visible h1,
+.featuredtext.visible h1,
+.feedbacktext.visible h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
+
+.abouttext h1, .featuredtext h1, .feedbacktext h1 {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
 }
 
 .card-container {

@@ -1,3 +1,4 @@
+// src/App.js
 import React from "react";
 import Start from "./Start.js";
 import { BrowserRouter } from "react-router-dom";

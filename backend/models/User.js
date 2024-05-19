@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       type: String, // Store base64 encoded image data
       required: true,
     },
+    mobileNumber:{
+      type:String,
+      required: true,
+    },
     role: {
       type: String,
       required: true,
@@ -32,6 +36,8 @@ const userSchema = new mongoose.Schema(
     aadharFile: String,
     certificationFile: String,
     licenceFile: String,
+    Place:String,
+
   },
   { timestamps: true }
 );

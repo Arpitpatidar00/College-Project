@@ -2,28 +2,6 @@ import React from 'react'
 //import { Link } from 'react-router-dom';
 const Foter = ()=>{
     return(
-//         <footer className="page-footer white" style={{
-//             borderTop:"1px solid grey"
-//         }}>
-//   <div className="container">
-//     <div className="row">
-//       <div className="col l6 s12">
-//         <h5 className="black-text">PlaceFinder</h5>
-//         <p className="black-text">PlaceFinder is an innovative project aimed at simplifying the process of discovering new places and navigating through them efficiently. It leverages modern technologies to provide users with a comprehensive platform for exploring various locations, tourist attractions, and more. PlaceFinder offers users the ability to quickly find nearby places of interest, view detailed information about them, and even get directions to their desired destinations. Discovering hidden gems in a new city, PlaceFinder is designed to enhance the user experience and make exploring the Madhya Pradesh and around us more convenient and enjoyable.</p>
-//       </div>
-//       <div className="col l4 offset-l2 s12">
-//         <h5 className="black-text">Links</h5>
-//         <ul>
-//           <li><a className="black-text" href="#!">Signin</a></li>
-//           <li><a className="black-text" href="#!">Signup</a></li>
-//           <li><a className="black-text" href="#!">Link 3</a></li>
-//           <li><a className="black-text" href="#!">Link 4</a></li>
-//         </ul>
-//       </div>
-//     </div>
-//   </div>
-  
-// </footer>
 <footer
   class="bg-zinc-50 text-center text-surface/75 dark:bg-neutral-700 dark:text-white/75 lg:text-left">
   <div
@@ -103,7 +81,7 @@ const Foter = ()=>{
                 d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z" />
             </svg>
           </span>
-          TW Elements
+          PlaceFinder
         </h6>
               <p>PlaceFinder is an innovative project aimed at simplifying the process of discovering new places and navigating through them efficiently. It leverages modern technologies to provide users with a comprehensive platform for exploring various locations, tourist attractions, and more. PlaceFinder offers users the ability to quickly find nearby places of interest, view detailed information about them, and even get directions to their desired destinations. Discovering hidden gems in a new city, PlaceFinder is designed to enhance the user experience and make exploring the Madhya Pradesh and around us more convenient and enjoyable.</p>
 
@@ -111,19 +89,19 @@ const Foter = ()=>{
       <div>
         <h6
           class="mb-4 flex justify-center font-semibold uppercase md:justify-start">
-          Products
+          Languages
         </h6>
         <p class="mb-4">
-          <a href="#!">Angular</a>
+          <a href="#!">Node</a>
         </p>
         <p class="mb-4">
           <a href="#!">React</a>
         </p>
         <p class="mb-4">
-          <a href="#!">Vue</a>
+          <a href="#!">Express</a>
         </p>
         <p>
-          <a href="#!">Laravel</a>
+          <a href="#!">Mongodb</a>
         </p>
       </div>
       <div>
@@ -161,7 +139,7 @@ const Foter = ()=>{
                 d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
             </svg>
           </span>
-          New York, NY 10012, US
+          Indore , NY 10012
         </p>
         <p class="mb-4 flex items-center justify-center md:justify-start">
           <span class="me-3 [&>svg]:h-5 [&>svg]:w-5">
@@ -175,7 +153,7 @@ const Foter = ()=>{
                 d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
             </svg>
           </span>
-          info@example.com
+          placeFinder@example.com
         </p>
         <p class="mb-4 flex items-center justify-center md:justify-start">
           <span class="me-3 [&>svg]:h-5 [&>svg]:w-5">

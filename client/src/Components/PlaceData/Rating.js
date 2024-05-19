@@ -1,108 +1,60 @@
-// import * as React from 'react';
-// import Rating from '@mui/material/Rating';
-// import Box from '@mui/material/Box';
-// import StarIcon from '@mui/icons-material/Star';
-// import './Placedata.css'; // Import the CSS file
+import React from "react";
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBRow,
+  MDBTextArea,
+  MDBTypography,
+} from "mdb-react-ui-kit";
 
-// const labels = {
-//   0.5: 'Useless',
-//   1: 'Useless+',
-//   1.5: 'Poor',
-//   2: 'Poor+',
-//   2.5: 'Ok',
-//   3: 'Ok+',
-//   3.5: 'Good',
-//   4: 'Good+',
-//   4.5: 'Excellent',
-//   5: 'Excellent+',
-// };
-
-// function getLabelText(value) {
-//   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-// }
-
-// export default function MyRating() {
-//   const [value, setValue] = React.useState(2);
-//   const [hover, setHover] = React.useState(-1);
-
-//   return (
-//     <Box className="rating-container" sx={{border: "1px solid white",width: "30rem"}}>
-//       <Rating
-//         name="hover-feedback"
-//         value={value}
-//         sx={{width: "30rem"}}
-//         precision={15.5}
-//         getLabelText={getLabelText}
-//         onChange={(event, newValue) => {
-//           setValue(newValue);
-//         }}
-//         onChangeActive={(event, newHover) => {
-//           setHover(newHover);
-//         }}
-//         emptyIcon={<StarIcon style={{ opacity: 2.55 }} />}
-//       />
-//       {value !== null && (
-//         <Box className="rating-label">{labels[hover !== -1 ? hover : value]}</Box>
-//       )}
-//     </Box>
-//   );
-// }
-
-
-import * as React from 'react';
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
-import StarIcon from '@mui/icons-material/Star';
-
-const labels = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
-  2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
-  4.5: 'Excellent',
-  5: 'Excellent+',
-};
-
-function getLabelText(value) {
-  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
-
-export default function MyRating() {
-  const [value, setValue] = React.useState(2);
-  const [hover, setHover] = React.useState(-1);
-
+export default function Rating() {
   return (
-    // <Box
-    //   sx={{
-    //     width: "100vw",
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //   }}
-    // >
-      <Rating
-        name="hover-feedback"
-        value={value}
-        size='large'
-        sx={{
-          fontSize: "2rem"
-        }}
-        // precision={0.5}
-        getLabelText={getLabelText}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
-        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-      />
-      // {value !== null && (
-      //   <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-      // )}
-    // </Box>
+    <section className="vh-100" style={{ backgroundColor: "#d94125" }}>
+      <MDBContainer className="py-5" style={{ maxWidth: "1000px" }}>
+        <MDBRow className="justify-content-center">
+          <MDBCol md="10" lg="8" xl="6">
+            <MDBCard>
+              <MDBCardBody className="p-4">
+                <div className="d-flex flex-start w-100">
+                  <MDBCardImage
+                    className="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp"
+                    alt="avatar"
+                    width="65"
+                    height="65"
+                  />
+
+                  <div className="w-100">
+                    <MDBTypography tag="h5">Add a comment</MDBTypography>
+                    <div>
+                      <a href="">
+                        <MDBIcon far icon="star text-danger me-1" />
+                        <MDBIcon far icon="star text-danger me-1" />
+                        <MDBIcon far icon="star text-danger me-1" />
+                        <MDBIcon far icon="star text-danger me-1" />
+                        <MDBIcon far icon="star text-danger me-1" />
+                      </a>
+                    </div>
+                    <MDBTextArea label="What is your view?" rows={4} />
+
+                    <div className="d-flex justify-content-between mt-3">
+                      <MDBBtn color="success">Danger</MDBBtn>
+                      <MDBBtn color="danger">
+                        Send <MDBIcon fas icon="long-arrow-alt-right ms-1" />
+                      </MDBBtn>
+                    </div>
+                  </div>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </section>
   );
 }

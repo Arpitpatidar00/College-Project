@@ -13,7 +13,7 @@ import{verifyUser} from '../utils/verifyToken.js';
 
 router.put("/:id",verifyUser,updateUser);
 
-router.delete("/:id",verifyUser,deleteUser);
+router.delete("/:id",deleteUser);
 
 router.get("/:id",getSinleUser);
 

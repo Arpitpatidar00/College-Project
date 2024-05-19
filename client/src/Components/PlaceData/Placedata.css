@@ -6,8 +6,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 5%;
+}
+#back {
+  position: fixed;
+  top: 20px;
+  left: 20px; /* Adjust as needed */
+  z-index: 999;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+  transition: color 0.3s ease;
 }
 
+#back:hover {
+  color: #555; /* Change color on hover */
+}
 #place {
   margin: 10%;
   padding: 5%;
@@ -16,10 +30,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#buttonscontainer {
-  justify-content: space-around;
-  display: flex;
-}
 
 .place h1 {
   margin-bottom: 10px;
@@ -47,23 +57,26 @@
 
 /* Profile box */
 .profile-box {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #7e6b6b;
+  border: 1px solid #6c5c5c;
+  padding-top: 20%;
+ border-radius: 5px;
   margin-top: 10px;
   position: relative;
+  text-decoration: #555;
 }
 
 .profile-box button {
   border: none;
-  background-color: transparent;
+  background-color: rgb(255, 255, 255);
   cursor: pointer;
   font-size: 16px;
-  color: #666;
+  margin-left: 1px;
+  color: #287d78;
 }
 
 .profile-box button:hover {
-  color: #333;
+  color: #483f3f;
 }
 
 /* Add Your experience section */
@@ -128,7 +141,7 @@
 
 /* Profile box positioning */
 .profile-box {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -144,7 +157,6 @@
 }
 
 .profile-box button {
-  position: absolute;
   top: 0;
   right: 0;
   background: transparent;
@@ -162,7 +174,6 @@
 .Guide {
   cursor: pointer;
   background: #000000;
-  color: #ffffff;
   border-radius: 5px;
   padding-left: 10px;
   padding-right: 10px;
@@ -210,3 +221,38 @@
     max-height: none;
   }
 }
+@media screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  #back {
+    top: 10px;
+    left: 10px; /* Adjust as needed */
+    font-size: 20px; /* Adjust as needed */
+  }
+}
+/* comment  */
+#comments {
+  display: block;
+  overflow-y: auto;
+  background-color: #000;
+  padding-top: 5%;
+  max-height: 300px;
+}
+.comment-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.comment-card {
+  width: calc(50% - 20px); /* Adjust the card width as needed */
+  margin-right: 20px; /* Space between cards */
+  margin-bottom: 20px; /* Space below each row of cards */
+}
+
+@media (max-width: 768px) {
+  .comment-card {
+    width: 100%; /* Make cards full width on smaller screens */
+    margin-right: 0; /* Reset margin */
+  }
+}
+
+/* ShowComments.css */

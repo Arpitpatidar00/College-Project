@@ -1,33 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Search from "../Views/Search.js";
 import Slider from "../Views/Sliderimg/Slider.js";
+import Feedback from "./Feedbackshow.js";
+
 import "./Screen.css";
 import CardData from "./CardData.js";
-
-import { useAuth } from "../../Context/AuthContext.js";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [places, setPlaces] = useState([]);
-  const { userData } = useAuth();
-  const { role } = userData;
-  console.log(userData);
+  const [isVisibleAbout, setIsVisibleAbout] = useState(false);
+  const [isVisibleFeatured, setIsVisibleFeatured] = useState(false);
+  const [isVisibleFeedback, setIsVisibleFeedback] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("/api/places")
-      .then((response) => setPlaces(response.data))
-      .catch((error) => console.error("Error fetching places:", error));
+    const handleScroll = () => {
+      const aboutText = document.getElementById("aboutText");
+      const featuredText = document.getElementById("featuredText");
+      const feedbackText = document.getElementById("feedbackText");
+
+      if (aboutText) {
+        const { top } = aboutText.getBoundingClientRect();
+        setIsVisibleAbout(top < window.innerHeight - 100);
+      }
+
+      if (featuredText) {
+        const { top } = featuredText.getBoundingClientRect();
+        setIsVisibleFeatured(top < window.innerHeight - 100);
+      }
+
+      if (feedbackText) {
+        const { top } = feedbackText.getBoundingClientRect();
+        setIsVisibleFeedback(top < window.innerHeight - 100);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      {role === "driver" || role === "guide" ? (
-        <div>
-          <h1>give me Some time </h1>
-        </div>
-      ) : (
       <div id="maindiv">
         <div id="slider">
           <Slider />
@@ -40,15 +54,33 @@ const Home = () => {
         </div>
 
         {/* About Text */}
-        <div className="abouttext">
-          <p>KNOW ABOUT SOME PLACES BEFORE YOUR TRAVEL</p>
+        <div
+          id="aboutText"
+          className={`abouttext ${isVisibleAbout ? "visible" : ""}`}
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            KNOW ABOUT SOME PLACES BEFORE YOUR TRAVEL
+          </motion.h1>
         </div>
+
         <div>
           <CardData />
         </div>
+
         {/* Featured Places */}
-        <div className="featuredtext">
-          <h3>FEATURED PLACES</h3>
+        <div
+          id="featuredText"
+          className={`featuredtext ${isVisibleFeatured ? "visible" : ""}`}
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            FEATURED PLACES
+          </motion.h1>
         </div>
 
         {/* Card Container */}
@@ -83,8 +115,22 @@ const Home = () => {
             </Link>
           ))}
         </div>
+
+        <div
+          id="feedbackText"
+          className={`feedbacktext ${isVisibleFeedback ? "visible" : ""}`}
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            Feedback
+          </motion.h1>
+        </div>
+        <div>
+          <Feedback />
+        </div>
       </div>
-        )} 
     </>
   );
 };

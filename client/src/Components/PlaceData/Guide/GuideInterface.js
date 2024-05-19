@@ -1,96 +1,146 @@
-// GuideInterface.js
+
+// import React, { useState } from "react";
+// import axios from "axios";
+// import "../Place.css"; // Ensure you have a CSS file for styles
+// import { useSelector } from "react-redux";
+// import { useAuth } from "../../../Context/AuthContext";
+
+// const GuideInterface = () => {
+//   const [time, setTime] = useState("");
+//   const [price, setPrice] = useState("");
+//   const [hours, setHours] = useState("");
+//   const [customPlace, setCustomPlace] = useState("");
+
+//   const { placedataId, setPlaceId } = useAuth(); // Using the useAuth hook to get placeId
+//   const placeId = useSelector((state) => state.place.placeId);
+//   const { userData } = useSelector((state) => state.auth);
+
+//   const submitData = async () => {
+//     try {
+//       const response = await axios.post("http://localhost:4000/submit/submit", {
+//         placeId: placeId,
+//         time,
+//         price,
+//         hours,
+//         customPlace,
+//         userData,
+//       });
+//       setPlaceId(response.data.guideData._id);
+//       return response.data.dataId; // Return the ID from the response
+//     } catch (error) {
+//       console.error("Error submitting data:", error);
+//     }
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     submitData();
+//     setTime("");
+//     setPrice("");
+//     setHours("");
+//     setCustomPlace("");
+//   };
+
+//   return (
+//     <>
+//       <div className="guide-interface">
+//         <h1>Guide Interface</h1>
+//         <form onSubmit={handleSubmit}>
+//           <div className="form-group">
+//             <label htmlFor="customPlace">Custom Place:</label>
+//             <input
+//               type="text"
+//               id="customPlace"
+//               value={customPlace}
+//               onChange={(e) => setCustomPlace(e.target.value)}
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="time">Time:</label>
+//             <input
+//               type="time"
+//               id="time"
+//               value={time}
+//               onChange={(e) => setTime(e.target.value)}
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="price">Price:</label>
+//             <input
+//               type="number"
+//               id="price"
+//               value={price}
+//               onChange={(e) => setPrice(e.target.value)}
+//             />
+//           </div>
+//           <div className="form-group">
+//             <label htmlFor="hours">Hours:</label>
+//             <input
+//               type="number"
+//               id="hours"
+//               value={hours}
+//               onChange={(e) => setHours(e.target.value)}
+//             />
+//           </div>
+//           <button type="submit">Submit</button>
+//         </form>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default GuideInterface;
 import React, { useState } from "react";
 import axios from "axios";
-import "../Place.css";
-
+import "../Place.css"; // Ensure you have a CSS file for styles
 import { useAuth } from "../../../Context/AuthContext";
+import { useSelector } from "react-redux";
 
-const GuideInterface = () => {
-  const [availability, setAvailability] = useState(false);
+const GuideInterface = ({ onDataSubmitted }) => {
   const [time, setTime] = useState("");
   const [price, setPrice] = useState("");
   const [hours, setHours] = useState("");
   const [customPlace, setCustomPlace] = useState("");
-  const [submitting, setSubmitting] = useState(false); // State to track submission status
 
-  const { placeId,setPlaceId,userData } = useAuth(); // Using the useAuth hook to get placeId
+  const {setPlaceId } = useAuth(); // Using the useAuth hook to get placeId
+  const userData = useSelector((state) => state.auth.userData);
+  const placeId = useSelector((state) => state.place.placeId);
 
-
-const submitData = async () => {
-  try {
-    const response = await axios.post("http://localhost:4000/submit/submit", {
-      placeId: customPlace || placeId,
-      availability,
-      time,
-      price,
-      hours,
-      customPlace,
-      userData,
-    });
-    setPlaceId(response.data.guideData._id);
-    return response.data.dataId; // Return the ID from the response
-  } catch (error) {
-    console.error("Error submitting data:", error);
-  }
-};
-
-
-  const deleteData = async () => {
+  const submitData = async () => {
     try {
-      await axios.delete(`http://localhost:4000/submit/delete/${placeId}`);
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
-  };
+      const response = await axios.post("http://localhost:4000/guide/guide", {
+        placeId,
+        time,
+        price,
+        hours,
+        customPlace,
+        userData,
 
-  const handleToggleAvailability = async () => {
-    if (!availability) {
-      try {
-      } catch (error) {
-        console.error("Error toggling availability:", error);
-      } finally {
-        setSubmitting(false); // Reset submitting state
-      }
-    } else {
-      if (placeId) {
-        await deleteData();
-      }
+      });
+      setPlaceId(response.data.guideData._id);
+      console.log(response.data.guideData._id);
+
+      onDataSubmitted(response.data.dataId);
+    } catch (error) {
+      console.error("Error submitting data:", error);
     }
-    setAvailability(!availability);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (availability) {
-      submitData(); 
-      setTime("");
-      setPrice("");
-      setHours("");
-      setCustomPlace("");
-    } else {
-      console.log("Cannot submit form. User is not available.");
-    }
+    submitData();
+    setTime("");
+    setPrice("");
+    setHours("");
+    setCustomPlace("");
   };
 
   return (
     <>
-      <div className="driver-interface">
-        <h1>Driver Interface</h1>
-
-        <div className="switch">
-          <label>
-            Availability:{" "}
-            <input
-              type="checkbox"
-              checked={availability}
-              onChange={handleToggleAvailability}
-            />
-            <span className="slider round"></span>
-          </label>
-        </div>
-
+      <div className="guide-interface">
+        <h1>Guide WorkPlace</h1>
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="form-group">
             <label htmlFor="customPlace">Custom Place:</label>
             <input
               type="text"
@@ -99,7 +149,7 @@ const submitData = async () => {
               onChange={(e) => setCustomPlace(e.target.value)}
             />
           </div>
-          <div>
+          <div className="form-group">
             <label htmlFor="time">Time:</label>
             <input
               type="time"
@@ -108,7 +158,7 @@ const submitData = async () => {
               onChange={(e) => setTime(e.target.value)}
             />
           </div>
-          <div>
+          <div className="form-group">
             <label htmlFor="price">Price:</label>
             <input
               type="number"
@@ -117,7 +167,7 @@ const submitData = async () => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          <div>
+          <div className="form-group">
             <label htmlFor="hours">Hours:</label>
             <input
               type="number"

@@ -6,14 +6,13 @@ const router = express.Router();
 // POST route to upload an image
 router.post("/", async (req, res) => {
   try {
-    const imageString = req.body.image; // Make sure it matches with the frontend
+    const { imageString, placeId } = req.body;
 
-    // Create a new Image document
     const image = new Image({
-      imageString: imageString,
+      imageString,
+      placeId,
     });
 
-    // Save the image string to the database
     await image.save();
 
     res.status(200).json({ message: "Image string uploaded successfully" });
@@ -26,9 +25,7 @@ router.post("/", async (req, res) => {
 // GET route to fetch all images
 router.get("/uploadedImages", async (req, res) => {
   try {
-    // Fetch all images from the database
     const images = await Image.find();
-
     res.status(200).json(images);
   } catch (error) {
     console.error("Error fetching images:", error);

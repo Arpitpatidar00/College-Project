@@ -14,11 +14,21 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { userId, comId, avatarUrl, userProfile, fullName, text,placeName } = req.body;
+  const {
+    placeId,
+    userId,
+    comId,
+    avatarUrl,
+    userProfile,
+    fullName,
+    text,
+    placeName,
+  } = req.body;
 
   try {
     // Create a new Comment document
     const comment = new Comment({
+      placeId,
       userId,
       comId,
       avatarUrl,

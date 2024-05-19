@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { CommentSection } from "react-comments-section";
 import "react-comments-section/dist/index.css";
 import axios from "axios";
-import { useAuth } from "../../Context/AuthContext";
+import { useSelector } from "react-redux";
 
 const DefaultComponent = ({ placeName }) => {
-  const { userData, searchData } = useAuth();
+  const { userData } = useSelector((state) => state.auth);
+  const placeId = useSelector((state) => state.place.placeId);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  if (!userData || !userData.data || !searchData || !placeName) {
+  if (!userData || !placeName || !placeId) {
     return <div>Loading...</div>;
   }
 
@@ -29,13 +31,14 @@ const DefaultComponent = ({ placeName }) => {
         userProfile,
         fullName,
         placeName, // Include placeName in the payload
+        placeId,   // Include placeId in the payload
       });
 
       if (response.status !== 201) {
         throw new Error("Failed to post comment");
       }
 
-      // Optionally, you can handle the successful post here
+      // Optionally, handle the successful post here
     } catch (error) {
       setError(error.message);
     } finally {
@@ -49,10 +52,10 @@ const DefaultComponent = ({ placeName }) => {
       {error && <div>Error: {error}</div>}
       <CommentSection
         currentUser={{
-          currentUserId: userData.data._doc.userId,
-          currentUserImg: userData.data._doc.image,
-          currentUserProfile: userData.data._doc.image,
-          currentUserFullName: userData.data._doc.username,
+          currentUserId: userData.userId,
+          currentUserImg: `data:image/jpeg;base64,${userData.image}`, // Display base64 image correctly
+          currentUserProfile: `data:image/jpeg;base64,${userData.image}`, // Display base64 image correctly
+          currentUserFullName: userData.username,
         }}
         logIn={{
           loginLink: "http://localhost:3001/login",

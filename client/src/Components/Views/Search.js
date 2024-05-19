@@ -1,76 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext.js';
+import { useDispatch } from 'react-redux'; 
+import { motion } from 'framer-motion'; // Import motion from framer-motion
+import { setPlaceId } from '../../actions/placeActions'; 
 import '../Card.css';
 
 const Search = () => {
-  const { setSearchData } = useAuth();
+  const dispatch = useDispatch(); 
   const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
   const [searchClicked, setSearchClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false); // State to track component visibility
+
+  useEffect(() => {
+    // Function to handle scroll event
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const searchComponent = document.getElementById('searchComponent');
+      if (searchComponent) {
+        const { top } = searchComponent.getBoundingClientRect();
+        const isVisible = top < window.innerHeight - 100;
+        setIsVisible(isVisible);
+      }
+    };
+
+    // Event listener for scroll
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup function
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleQueryChange = (e) => {
+    setQuery(e.target.value);
+  };
+
   const handleSearch = async () => {
     try {
-      if (!query) {
-        window.location.reload();
-        return;
+      setSearchClicked(true); // Trigger search on button click
+      if (query.trim() !== '') {
+        const response = await axios.get(`http://localhost:4000/add/search?query=${query.trim()}`);
+        setImages(response.data);
       }
-      
-      const response = await axios.get(`http://localhost:4000/add/search?query=${query}`);
-      setImages(response.data);
-      setSearchData(response.data);
-      setSearchClicked(true);
     } catch (error) {
       console.error('Error searching:', error);
     }
   };
 
-  const handleQueryChange = (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    if (!value) {
-      setImages([]);
-      setSearchClicked(false);
-    }
+  const handleCardClick = (placeId) => {
+    dispatch(setPlaceId(placeId));
   };
 
-  const renderCardData = searchClicked && query.trim() !== '' ? (
-    images
-      .filter(image => 
-        (image.placeName && image.placeName.toLowerCase().includes(query.trim().toLowerCase())) || 
-        (image.cityName && image.cityName.toLowerCase().includes(query.trim().toLowerCase()))
-      )
-      .map(image => (
-        <Link 
-          to={{ 
-            pathname: `/details/${image._id}`, 
-            state: { 
-              image: image.image, 
-              placeName: image.placeName,
-              description: image.description
-            } 
-          }} 
-          key={image._id} 
-          className="card-link"
+  const renderCardData = images.map(image => (
+    (image.placeName && image.placeName.toLowerCase() === query.trim().toLowerCase()) || 
+    (image.cityName && image.cityName.toLowerCase() === query.trim().toLowerCase())
+  ) ? (
+    <div >
+      <Link 
+        to={`/details/${image._id}`}
+        key={image._id} 
+        className="card-link"
+        onClick={() => handleCardClick(image._id)} 
+      >
+        <motion.div
+          key={image._id}
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -50 }}
+          transition={{ duration: 0.5 }}
+          className={`card ${isVisible ? 'visible' : ''}`} // Apply animation when visible
         >
-          <div className='card'>
-            <img className='img' src={image.image} alt={image.placeName} />
-            <div className="container">
-              <h2 className='placename'>{image.placeName}</h2>
-              <p className='para'>{image.description}</p>
-            </div>
-            
+          <img className='img' src={image.image} alt={image.placeName} />
+          <div className="container-card">
+            <h2 className='placename'>{image.placeName}</h2>
+            <p className='para'>{image.description}</p>
           </div>
-        </Link>
-      ))
-  ) : null;
+        </motion.div>
+      </Link>
+    </div>
+  ) : null);
   
   return (
-    <div>
+    <div id="searchComponent">
       <input type="text" value={query} onChange={handleQueryChange} />
       <button onClick={handleSearch}>Search</button>
+      <div id='card-div'>
       {renderCardData}
-      
+      </div>
     </div>
   );
 };

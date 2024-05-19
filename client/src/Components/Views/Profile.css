@@ -1,3 +1,13 @@
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fbc2eb;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
+  }
 #profile {
   align-items: center;
   background-color: #000000;
@@ -54,4 +64,72 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+
+
+.nav-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.brand-logo {
+  margin-left: 20px;
+}
+
+#nav-mobile {
+  align-items: center;
+  list-style-type: none;
+}
+
+#nav-mobile li {
+  margin-left: 20px;
+}
+
+#logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  color: #555;
+}
+#feedback-btn {
+  background: none;
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+
+
+ }
+
+#feedback-btn:hover {
+  color: #555;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .brand-logo {
+    margin-left: 10px;
+    font-size: 1.2em;
+  }
+
+  #nav-mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #nav-mobile li {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
+  #logout-btn {
+    margin-top: 10px;
+  }
 }

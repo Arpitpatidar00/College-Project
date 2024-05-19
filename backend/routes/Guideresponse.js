@@ -4,16 +4,15 @@ import Guide from "../models/GuideavilableSchema.js";
 const router = express.Router();
 
 // POST Route to submit guide data
-router.post('/submit', async (req, res) => {
+router.post('/guide', async (req, res) => {
   try {
     // Extract data from the request body
-    const { placeId, availability, time, price, hours, customPlace, userData } = req.body;
+    const { placeId,  time, price, hours, customPlace, userData } = req.body;
 
     // Save the data to the database or perform necessary operations
     // Example: Saving data to MongoDB
     const guideData = await Guide.create({
       placeId,
-      availability,
       time,
       price,
       hours,
@@ -52,7 +51,7 @@ router.get('/guide', async (req, res) => { // Changed route to accept placeId pa
 
     // Fetch the guide data from the database or perform necessary operations
     // Example: Fetching data from MongoDB
-    const guideData = await Guide.findOne();
+    const guideData = await Guide.find();
 
     // Return the response with guide data
     res.status(200).json({ success: true, guideData });

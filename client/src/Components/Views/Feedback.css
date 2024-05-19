@@ -1,0 +1,131 @@
+.modal-bg {
+  position: fixed;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the modal */
+  width: 500px;
+  max-width: 90%; /* Ensure modal doesn't exceed viewport width */
+  height: 500px;
+  max-height: 90%; /* Ensure modal doesn't exceed viewport height */
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Adjust z-index to position above the page content */
+}
+
+.modal-content {
+  background-color: white;
+  width: 90%; /* Adjusted for responsiveness */
+  max-width: 500px; /* Limit maximum width */
+  height: 90%; /* Adjusted for responsiveness */
+  max-height: 500px; /* Limit maximum height */
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* Adjusted for responsiveness */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.close-btn:hover {
+  color: rgb(0, 0, 0);
+}
+
+.feedback-textarea {
+  width: 100%;
+  height: 70%; /* Adjusted for responsiveness */
+  max-height: 300px; /* Limit maximum height */
+  margin-bottom: 20px;
+  resize: none;
+  color: aliceblue;
+  font-size: 20px;
+}
+
+.send-btn,
+.open-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.send-btn:hover,
+.open-btn:hover {
+  background-color: #0056b3;
+}
+/* Feedback.css */
+
+
+
+/* Add padding to the bottom of the container */
+#Feedback {
+  padding-bottom: 50px; /* Adjust as needed */
+  max-width:100%;
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+/* Styles for comment cards */
+.comment-card {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.comment-card img {
+  border-radius: 50%;
+}
+
+.comment-card .p-4 {
+  background-color: #f8f9fa;
+}
+
+/* Styles for responsiveness */
+@media (min-width: 576px) {
+  .comment-card {
+    width: calc(50% - 20px); /* Adjust margin and width for medium screens */
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .comment-card {
+    width: calc(33.33% - 20px); /* Adjust margin and width for large screens */
+  }
+}
+
+@media (min-width: 992px) {
+  .comment-card {
+    width: calc(
+      25% - 20px
+    ); /* Adjust margin and width for extra-large screens */
+  }
+}
+
+/* Styles for comment text */
+.comment-card .p {
+  margin-bottom: 0.5rem;
+}
+
+/* Styles for link buttons */
+.link-muted {
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.link-muted:hover {
+  color: #495057;
+}
+#Feed{
+  font-size: 50px;
+}

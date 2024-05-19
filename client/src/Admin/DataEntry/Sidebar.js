@@ -1,9 +1,9 @@
 import React from "react";
 import { useAdmin } from "../../Context/AdminContext";
-
 import "./admin.css";
+
 function Sidebar() {
-  const { placedata, setPlacedata, userdata, setUserdata } = useAdmin();
+  const { placedata, setPlacedata, userdata, setUserdata, setVideoUpload } = useAdmin();
 
   function userdataon(e) {
     setPlacedata(false);
@@ -13,6 +13,13 @@ function Sidebar() {
     setPlacedata(true);
     setUserdata(false);
   }
+
+  function videouploadon(e) {
+    setPlacedata(false);
+    setUserdata(false);
+    setVideoUpload(true); // Set the state for Video Upload
+  }
+
   return (
     <div className="app">
       <div className="sidebar bg-green-500">
@@ -34,7 +41,13 @@ function Sidebar() {
             onClick={userdataon}
             className={`button  text-white ${userdata ? "active" : ""}`}
           >
-            <b>user Control</b>
+            <b>User Control</b>
+          </button>
+          <button
+            onClick={videouploadon}
+            className={`button  text-white ${!placedata && !userdata ? "active" : ""}`}
+          >
+            <b>Video Upload</b>
           </button>
         </ul>
       </div>

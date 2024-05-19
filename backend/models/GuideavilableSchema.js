@@ -5,10 +5,7 @@ const guideSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  availability: {
-    type: Boolean,
-    required: true
-  },
+
   time: {
     type: String,
     required: true

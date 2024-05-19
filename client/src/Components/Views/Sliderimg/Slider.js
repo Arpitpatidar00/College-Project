@@ -2,7 +2,7 @@
 import * as React from "react";
 import "./style.css"; // Import CSS styles
 
-import video1 from "./Videos/5127768-uhd_3840_2160_24fps.mp4";
+import video1 from "./Videos/3207708-hd_1280_720_25fps.mp4";
 import video2 from "./Videos/3207708-hd_1280_720_25fps.mp4";
 import video3 from "./Videos/854107-hd_1920_1080_25fps.mp4";
 
@@ -78,3 +78,4 @@ const Slider = () => {
   );
 };
 export default Slider;
+

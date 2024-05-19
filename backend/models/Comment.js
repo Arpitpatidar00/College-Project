@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 // Comment model
 const commentSchema = new mongoose.Schema({
+  placeId: { type: String, required: true },
   userId: { type: String }, // Update to include userId
   comId: { type: String }, // Add comId field
   avatarUrl: { type: String }, // Add avatarUrl field
